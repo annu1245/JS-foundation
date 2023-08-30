@@ -1,6 +1,58 @@
-.container {
-    width: 200px;
-    height: auto;
+body {
     display: flex;
-    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
 }
+
+.main-div h1{
+    color:blueviolet;
+}
+
+.main-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ }
+ 
+label {
+    margin-top: 10px;
+}
+ .container {
+    width: 20%;
+    display: flex;
+    margin: 10px;
+    flex-direction: column; 
+ }
+ input{
+    min-height: 40px;
+    border-radius: 10px;
+    border : 2px solid blueviolet;
+    font-size: 1.2rem;
+ }
+
+ #check{
+    min-width: 100px;
+    min-height: 40px;
+    border-radius: 10px;
+    background-color: blueviolet;
+    border: none;
+    font-size: 1.2rem;
+    color:white;
+    cursor: pointer;
+}
+ table, td {
+    border: 2px solid blueviolet;
+    padding: 8px;
+  }
+  
+  table {
+    table-layout: fixed;
+    width: 900px;
+    border-collapse: collapse;
+  }
+
+  #message{
+    color: red;
+  }
