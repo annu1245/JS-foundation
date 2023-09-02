@@ -1,8 +1,7 @@
 body {
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .main-div h1{
@@ -10,29 +9,20 @@ body {
 }
 
 .main-div {
-    width: 100%;
+    width: 35vw;
     display: flex;
     flex-direction: column;
     align-items: center;
  }
- 
-label {
-    margin-top: 10px;
-}
- .container {
-    width: 20%;
-    display: flex;
-    margin: 10px;
-    flex-direction: column; 
- }
+
  input{
-    min-height: 40px;
+    min-height: 35px;
     border-radius: 10px;
     border : 2px solid blueviolet;
     font-size: 1.2rem;
  }
 
- #check{
+ #check, #next-btn{
     min-width: 100px;
     min-height: 40px;
     border-radius: 10px;
@@ -42,17 +32,54 @@ label {
     color:white;
     cursor: pointer;
 }
+
+#next-btn{
+  margin:1em;
+}
  table, td {
     border: 2px solid blueviolet;
-    padding: 8px;
+    padding: 6px;
   }
   
   table {
     table-layout: fixed;
-    width: 900px;
+    width: 600px;
     border-collapse: collapse;
+  }
+  table caption{
+    font-size: 1.6rem;
+    color: blueviolet;
+    font-weight: 700;
   }
 
   #message{
     color: red;
   }
+
+  /* Media query for mobile devices */
+@media (max-width: 768px) {
+  body {
+      font-size: 1.2rem; /* Adjust the font size for smaller screens */
+  }
+
+  .main-div {
+      width: 80vw; /* Increase the width for better mobile display */
+  }
+
+  input {
+      font-size: 1rem; /* Adjust input font size for smaller screens */
+  }
+
+  #check {
+      min-width: 80px; /* Adjust button width for smaller screens */
+  }
+
+  table {
+      width: 100%; /* Make the table width 100% for better mobile display */
+  }
+}
+
+
+
+
+
