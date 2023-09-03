@@ -2,7 +2,7 @@ const billAmount = document.getElementById("bill-amount");
 const nextBtn = document.getElementById("next-btn");
 const cashGiven = document.getElementById('cash-given');
 const checkBtn = document.getElementById('check');
-const Errormessage = document.getElementById('message');
+const errorMessage = document.getElementById('message');
 const tableSection = document.querySelector(".cash-count");
 const numOfNotes = document.querySelectorAll('.num-of-notes');
 const returnAmountToCustomer = document.querySelector('.return-amount');
@@ -39,7 +39,7 @@ checkBtn.addEventListener("click", function validateAmount() {
     })
     //initially hide any message
     message.style.display = 'none';
-    returnAmountToCustomer.innerHTML = '0 Rs/-';
+    returnAmountToCustomer.innerText = 0;
     //display the table after clicking on check button
     tableSection.style.display = 'block';
     //check the bill amount's value should be positive
@@ -49,7 +49,7 @@ checkBtn.addEventListener("click", function validateAmount() {
         if (cashGiven.intVal() >= billAmount.intVal()) {
             // calculate returnable cash amount
             const returnAmount = cashGiven.intVal() - billAmount.intVal();
-            returnAmountToCustomer.innerHTML = returnAmount + " Rs/-";
+            returnAmountToCustomer.innerText = returnAmount;
             //function for display number of notes to be return
             checkReturnAmount(returnAmount);
         } else {
@@ -64,7 +64,7 @@ checkBtn.addEventListener("click", function validateAmount() {
 
 function checkReturnAmount(amount) {
     //check how many number of notes have to return from available notes
-    for (let i=0; i<notes.length; i++) {
+    for (let i in notes) {
         //amount/notes[i] will display number of notes to be return eg- 1980/500 = 3
         noteCount = Math.trunc(amount / notes[i]);
         //amount%=notes[i] it will calculate the remaining balance eg- 1980%500 = 480
@@ -77,9 +77,9 @@ function checkReturnAmount(amount) {
 
 function showMessage(message) {
     //display 'block' is used to show the html content;
-    Errormessage.style.display = 'block';
+    errorMessage.style.display = 'block';
     //the error message will be display in the html tag
-    Errormessage.innerText = message;
+    errorMessage.innerText = message;
 }
 
 
