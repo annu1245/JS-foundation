@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="style.css" rel="stylesheet"/> 
-    <title>Document</title>
-</head>
-<body>
-    <div class="main-div">
-        <h1>Cash Register Manager</h1>
-        <p>Enter the bill amount and cash given by the customer and know minimum number of notes to return</p>
-        <label for="bill-amount">Bill Amount</label>
-        <input type="number" id="bill-amount"/>
-        <button id="next-btn">Next</button>
-        <label for="cash-given" id="cash-label">Cash Given</label>
-        <input type="number" id="cash-given"/><br/>
-        <button id="check">Check</button>
-        <p id="message"></p>
-        <div class="cash-count">
-            <table>
-                <caption>Return Changes</caption>
-                <tr>
-                    <td>No of Notes</td>
-                    <td class="num-of-notes"></td>
-                    <td class="num-of-notes"></td>
-                    <td class="num-of-notes"></td>
-                    <td class="num-of-notes"></td>
-                    <td class="num-of-notes"></td>
-                    <td class="num-of-notes"></td>
-                    <td class="num-of-notes"></td>
-                </tr>
-                <tr>
-                    <td>Notes</td>
-                    <td>2000</td>
-                    <td>500</td>
-                    <td>100</td>
-                    <td>20</td>
-                    <td>10</td>
-                    <td>5</td>
-                    <td>1</td>
-                </tr>
-            </table>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="style.css" rel="stylesheet"/> 
+        <title>Cashier</title>
+    </head>
+    <body>
+        <div class="main-div">
+            <h1>Cash Register Manager</h1>
+            <p>Enter the bill amount and cash given by the customer and know minimum number of notes to return</p>
+            <label for="bill-amount">Bill Amount</label>
+            <input type="number" id="bill-amount"/>
+            <button id="next-btn">Next</button>
+            <label for="cash-given">Cash Given</label>
+            <input type="number" id="cash-given"/><br/>
+            <button id="check">Check</button>
+            <p id="message"></p>
+            <div class="cash-count">
+                <table>
+                    <caption>Return Changes <span class="return-amount">0 RS/-</span></caption> 
+                    <tr>
+                        <td>No. of Notes</td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                        <td class="num-of-notes"></td>
+                    </tr>
+                    <tr>
+                        <td>Notes</td>
+                        <td>2000</td>
+                        <td>500</td>
+                        <td>100</td>
+                        <td>50</td>
+                        <td>20</td>
+                        <td>10</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>1</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
 <script src="cashier.js"></script>
-</body>   
+    </body>   
 </html>

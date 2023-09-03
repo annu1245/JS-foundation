@@ -1,81 +1,87 @@
 body {
-    display: flex;
-    justify-content: center;
-    font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
 }
 
-.main-div h1{
-    color:blueviolet;
+.main-div h1 {
+  color: blueviolet;
 }
 
 .main-div {
-    width: 35vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
- }
-
- input{
-    min-height: 35px;
-    border-radius: 10px;
-    border : 2px solid blueviolet;
-    font-size: 1.2rem;
- }
-
- #check, #next-btn{
-    min-width: 100px;
-    min-height: 40px;
-    border-radius: 10px;
-    background-color: blueviolet;
-    border: none;
-    font-size: 1.2rem;
-    color:white;
-    cursor: pointer;
+  width: 35vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#next-btn{
-  margin:1em;
+input {
+  min-height: 35px;
+  border-radius: 10px;
+  border : 2px solid blueviolet;
+  font-size: 1.2rem;
 }
- table, td {
-    border: 2px solid blueviolet;
-    padding: 6px;
-  }
-  
-  table {
-    table-layout: fixed;
-    width: 600px;
-    border-collapse: collapse;
-  }
-  table caption{
-    font-size: 1.6rem;
-    color: blueviolet;
-    font-weight: 700;
-  }
 
-  #message{
-    color: red;
-  }
+#check, #next-btn {
+  min-width: 100px;
+  min-height: 40px;
+  border-radius: 10px;
+  background-color: blueviolet;
+  border: none;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+}
+
+#next-btn {
+  margin: 1em;
+}
+
+.return-amount {
+  float: right;
+  font-size: 1.5rem;
+}
+table, td {
+  border: 2px solid blueviolet;
+  padding: 6px;
+}
+
+table {
+  table-layout: fixed;
+  width: 600px;
+  border-collapse: collapse;
+}
+
+table caption {
+  font-size: 1.6rem;
+  color: blueviolet;
+  font-weight: 700;
+}
+
+#message {
+  color: red;
+}
 
   /* Media query for mobile devices */
 @media (max-width: 768px) {
   body {
-      font-size: 1.2rem; /* Adjust the font size for smaller screens */
+    font-size: 1.2rem; /* Adjust the font size for smaller screens */
   }
 
   .main-div {
-      width: 80vw; /* Increase the width for better mobile display */
+    width: 80vw; /* Increase the width for better mobile display */
   }
 
   input {
-      font-size: 1rem; /* Adjust input font size for smaller screens */
+    font-size: 1rem; /* Adjust input font size for smaller screens */
   }
 
   #check {
-      min-width: 80px; /* Adjust button width for smaller screens */
+    min-width: 80px; /* Adjust button width for smaller screens */
   }
 
   table {
-      width: 100%; /* Make the table width 100% for better mobile display */
+    width: 100%; /* Make the table width 100% for better mobile display */
   }
 }
 
