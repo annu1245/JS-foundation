@@ -1,0 +1,53 @@
+
+
+.main {
+    width: 90vw;
+    height:90vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.elem {
+    margin: 10px 0px;
+    background-color: rgb(251, 151, 38);
+    display: flex;
+    align-items: center;
+    width: 400px;
+    justify-content:space-between;
+    padding: 0px 5px;
+    font-size: 1.1em;
+}
+
+.icons .fa {
+    padding: 0px 10px;
+}
+.elem p {
+    word-break: break-all;
+}
+
+input {
+    width: 300px;
+    font-size: 1.2em;
+    padding: 5px;
+    margin: 10px;
+    border: none;
+    border-bottom: 2px solid black;
+}
+*:focus {
+    outline: none;
+}
+
+input :focus{
+    outline: none;
+    border: none;
+}
+
+button {
+    width: 100px;
+    height: 35px;
+    font-size: 1.2em;
+    background-color: rgb(248, 116, 1);
+    border: none;
+    border-radius: 30px;
+}
