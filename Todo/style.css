@@ -1,4 +1,7 @@
+*{
+    box-sizing: border-box;
 
+}
 
 .main {
     width: 90vw;
@@ -7,25 +10,6 @@
     align-items: center;
     flex-direction: column;
 }
-
-.elem {
-    margin: 10px 0px;
-    background-color: rgb(251, 151, 38);
-    display: flex;
-    align-items: center;
-    width: 400px;
-    justify-content:space-between;
-    padding: 0px 5px;
-    font-size: 1.1em;
-}
-
-.icons .fa {
-    padding: 0px 10px;
-}
-.elem p {
-    word-break: break-all;
-}
-
 input {
     width: 300px;
     font-size: 1.2em;
@@ -33,6 +17,15 @@ input {
     margin: 10px;
     border: none;
     border-bottom: 2px solid black;
+}
+button {
+    width: 100px;
+    height: 35px;
+    font-size: 1.2em;
+    background-color: rgb(234, 112, 35);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
 }
 *:focus {
     outline: none;
@@ -43,11 +36,35 @@ input :focus{
     border: none;
 }
 
-button {
-    width: 100px;
-    height: 35px;
-    font-size: 1.2em;
-    background-color: rgb(248, 116, 1);
-    border: none;
-    border-radius: 30px;
+.elem {
+    background-color: rgb(251, 244, 100);
+    width: 400px;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    font-size: 1.1em;
+    margin: 10px 0px;
 }
+.text {
+    flex: 1;
+    word-break: break-all;
+}
+
+.icon1 {
+    background-color: rgb(10, 241, 29);
+    padding: 10px 15px;
+    margin:  0px 5px;
+    cursor: pointer;
+}
+
+.icon2 {
+    background-color: rgb(240, 19, 19);
+    padding: 10px 15px;
+    margin: 0px 5px;
+    cursor: pointer; 
+}
+.fa-trash-can, .fa-circle-check {
+    pointer-events: none;
+}
+
+
