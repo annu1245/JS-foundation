@@ -37,7 +37,7 @@ input :focus{
 }
 
 .elem {
-    background-color: rgb(251, 244, 100);
+    background-color:yellow;
     width: 400px;
     display: flex;
     padding: 10px;
@@ -58,13 +58,17 @@ input :focus{
 }
 
 .icon2 {
-    background-color: rgb(240, 19, 19);
+    background-color: red;
     padding: 10px 15px;
     margin: 0px 5px;
     cursor: pointer; 
 }
 .fa-trash-can, .fa-circle-check {
     pointer-events: none;
+}
+
+.textEffect {
+    text-decoration: line-through;
 }
 
 

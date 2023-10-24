@@ -4,14 +4,15 @@ text = document.querySelector('input');
 testbtn = document.getElementById('test');
 
 submintBtn.addEventListener("click", function() {
-    if(text.value != '') {
+    input_val = text.value.trim()
+    if(input_val != '') {
         
         elemDiv = document.createElement('div');
         elemDiv.classList.add('elem');
 
         textDiv = document.createElement('spam');
         textDiv.classList.add('text');
-        textDiv.innerText = text.value;
+        textDiv.innerText = input_val;
 
         icon1 = document.createElement('spam');
         icon1.classList.add('icon1');
@@ -26,17 +27,29 @@ submintBtn.addEventListener("click", function() {
         elemDiv.appendChild(icon2);
         listDiv.appendChild(elemDiv);
 
-        text.value = "";
-    }else {
+        
+
+        document.querySelectorAll('.icon2').forEach((icon2) => {
+            icon2.addEventListener('click', (item) => {
+                test = item.target.parentElement;
+                test.remove();
+              });
+        });
+
+        document.querySelectorAll('.icon1').forEach((icon1) => {
+            icon1.addEventListener('click', (el) => {
+                fc = el.target.parentNode.firstChild;
+                fc.classList.add('textEffect');
+              });
+        });
+
+       text.value = '';
+       
+
+    } else {
         alert("please write your todo")
     }
 })
 
 
-document.querySelectorAll('.icon2').forEach((icon2) => {
-    icon2.addEventListener('click', (item) => {
-        console.log(item.target.parentElement);
-        test = item.target.parentElement;
-        test.remove();
-      });
-})
+
