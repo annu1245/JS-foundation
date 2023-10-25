@@ -8,7 +8,7 @@ submintBtn.addEventListener("click", function() {
     if(input_val != '') {
         
         elemDiv = document.createElement('div');
-        elemDiv.classList.add('elem');
+        elemDiv.classList.add('elem', 'new-box');
 
         textDiv = document.createElement('spam');
         textDiv.classList.add('text');
@@ -26,13 +26,18 @@ submintBtn.addEventListener("click", function() {
         elemDiv.appendChild(icon1);
         elemDiv.appendChild(icon2);
         listDiv.appendChild(elemDiv);
-
         
+        setTimeout(() => {
+            elemDiv.classList.remove('new-box');
+        }, 300)
 
         document.querySelectorAll('.icon2').forEach((icon2) => {
             icon2.addEventListener('click', (item) => {
                 test = item.target.parentElement;
-                test.remove();
+                test.classList.add('removed-item')
+                setTimeout(() => {
+                    test.remove();
+                },1000)
               });
         });
 

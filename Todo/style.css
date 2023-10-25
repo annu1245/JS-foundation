@@ -44,7 +44,11 @@ input :focus{
     align-items: center;
     font-size: 1.1em;
     margin: 10px 0px;
+    position: relative;
 }
+
+
+
 .text {
     flex: 1;
     word-break: break-all;
@@ -71,4 +75,38 @@ input :focus{
     text-decoration: line-through;
 }
 
+.removed-item {
+    animation: removed-item-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+    /*transform origin is moved to the bottom left corner*/
+    transform-origin: 0% 100%;
+}
+
+@keyframes removed-item-animation {
+    0% {
+        opacity: 1;
+        transform: rotateZ(0);
+}
+
+    100% {
+        opacity: 0;
+        transform: translateY(600px) rotateZ(90deg);
+    }
+}
+
+/* animate new box */
+.new-box {
+	animation: append-animate .3s linear;
+}
+
+
+@keyframes append-animate {
+	from {
+		transform: scale(0);
+		opacity: 0;
+	}
+	to {
+		transform: scale(1);
+		opacity: 1;	
+	}
+}
 
