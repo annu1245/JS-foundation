@@ -18,11 +18,11 @@ input {
     border: none;
     border-bottom: 2px solid black;
 }
-button {
+#submit {
     width: 100px;
     height: 35px;
     font-size: 1.2em;
-    background-color: rgb(234, 112, 35);
+    background-color: tomato;
     border: none;
     border-radius: 30px;
     cursor: pointer;
@@ -52,20 +52,20 @@ input :focus{
     word-break: break-all;
 }
 
-.icon1 {
+.edit {
     background-color: rgb(10, 241, 29);
     padding: 10px 15px;
     margin:  0px 5px;
     cursor: pointer;
 }
 
-.icon2 {
+.del {
     background-color: red;
     padding: 10px 15px;
     margin: 0px 5px;
     cursor: pointer; 
 }
-.fa-trash-can, .fa-circle-check {
+.fa-regular, .fa-solid {
     pointer-events: none;
 }
 
@@ -107,3 +107,18 @@ input :focus{
 		opacity: 1;	
 	}
 }
+
+.check-area {
+    width: 300px;
+    border: 1px solid gray;
+    font: medium -moz-fixed;
+    font: -webkit-small-control;
+    height: 30px;
+    overflow: hidden;
+    padding: 2px;
+    resize: both;
+    border:none;
+    resize: none;;
+    background-color:yellow;
+}
+
