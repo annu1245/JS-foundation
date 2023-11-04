@@ -8,9 +8,10 @@ clearBtn = document.getElementById('clear_btn');
 submintBtn.addEventListener("click", function() {
     //get the index for the next div
     let todoIndex = listDiv.getElementsByClassName('elem').length;
-    todoIndex.length == 0 ? clearBtn.style.display = 'none' :  clearBtn.style.display = 'block';
+    todoIndex.length == 0 ? clearBtn.style.display = 'none' : clearBtn.style.display = 'block';
     input_val = text.value.trim(); //trim the extra spaces
     if (input_val != '') {
+        clearBtn.style.display = 'block';
         addDiv(input_val, todoIndex);
         setLocal(input_val, todoIndex);
         addListeners();
@@ -21,14 +22,16 @@ submintBtn.addEventListener("click", function() {
     }
 })
 
+
 function addDiv(input_val, todoIndex) {
     elemDiv = document.createElement('div');
     elemDiv.classList.add('elem', 'new-box');
     elemDiv.setAttribute('index', todoIndex);
 
-    textDiv = document.createElement('textarea');
-    textDiv.classList.add('check-area');
-    textDiv.setAttribute('readonly', 'readonly');
+    textDiv = document.createElement('span');
+    textDiv.classList.add('text-area');
+    textDiv.setAttribute('contenteditable', 'false');
+    textDiv.setAttribute('role', 'textarea');
     textDiv.innerText = input_val;
 
     edit = document.createElement('button');
@@ -57,23 +60,34 @@ function addEditListener(editElement) {
     editElement.addEventListener('click', (element) => {
         let textArea = element.target.parentElement.firstChild;
         //check either clicked to edit the todo or edit is done
-        let = isEditable = textArea.getAttribute('readonly');
-        if(isEditable !== null) {
-            // edit permission -> remove readonly and display textarea to edit
-            element.target.innerHTML = '<i class="fa-regular fa-circle-check">';
-            textArea.removeAttribute('readonly');
-            textArea.style.background = "white";
-            textArea.focus();
-            textArea.selectionStart = textArea.value.length;
+        let isEditable = textArea.getAttribute('contenteditable'); //default-false
+        if(isEditable === "true") {
+           // done update -> set readonly and remove the editable textarea
+           textArea.setAttribute('contenteditable', 'false');
+           textArea.style.background = "yellow";
+           element.target.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
+           let elemIndex = element.target.parentElement.getAttribute('index');
+           textArea.innerHTML = textArea.innerHTML.trim();
+           let text = textArea.innerText.trim();
+           if(text === ''){
+            alert("not a valid todo");
+           }else {
+            updateLocal(text, elemIndex); 
+           }
         }
         else{
-            // done update -> set readonly and remove the editable textarea
-            textArea.setAttribute('readonly', 'readonly');
-            textArea.style.background = "yellow";
-            element.target.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>';
-            let elemIndex = element.target.parentElement.getAttribute('index');
-            updateLocal(textArea.value, elemIndex); 
-
+            // edit permission -> remove readonly and display textarea to edit
+            element.target.innerHTML = '<i class="fa-regular fa-circle-check">';
+            textArea.setAttribute('contenteditable', 'true');
+            textArea.style.background = "white";
+            // to add focus to the end of the text
+                textNode = textArea.firstChild;
+                let range = document.createRange();
+                let sel = window.getSelection();
+                range.setStart(textNode, textNode.length);
+                range.collapse(true);
+                sel.removeAllRanges();
+                sel.addRange(range);
         }
     })
 }
@@ -86,8 +100,8 @@ function addDeleteListener(delElement) {
         //add the removed-item class for the animation while deleting todo
         elementDiv.classList.add('removed-item');
         setTimeout(() => elementDiv.remove(), 1000);
-        removeLocal(index);
-    })
+            removeLocal(index);
+        })
 }
 
 // ---------- ----------- LocalStorage ---------------- ------------//
@@ -105,11 +119,11 @@ function getLocal() {
         clearBtn.style.display = 'none';   
         return;
     } else {
-        for (var key in myTodoData) {
+        for (let key in myTodoData) {
             if (myTodoData.hasOwnProperty(key)) {
-              var val = myTodoData[key];
+              let val = myTodoData[key];
               //show all data of localStorage
-              addDiv(val, key);
+              addDiv(val,key);
             }
           }
     }
@@ -129,6 +143,7 @@ function removeLocal(index) {
 
 clearBtn.addEventListener("click", function() {
     localStorage.clear();
+    clearBtn.style.display = 'none';
     // location.reload();
     getLocal();
 })
