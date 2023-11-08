@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+
+<style>
+        body {
+    margin: 0 auto;
+    width: 50%;
+}
+span {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+}
+#grey {
+    background-color: grey;
+   
+}
+#yellow {
+    background-color: yellow;
+}
+#red {
+    background-color: red;
+}
+#green {
+    background-color: green;
+}
+</style>
+</head>
+<body>
+    <h1>Change bg-color by clicking on Box</h1>
+    <span class="button" id="grey"></span>
+    <span class="button" id="yellow"></span>
+    <span class="button" id="green"></span>
+    <span class="button" id="red"></span>
+
+<script>
+    const buttons = document.querySelectorAll('.button');
+    const body = document.querySelector('body');
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e)=>{
+            let bgColor = e.target.id;
+            body.style.backgroundColor = bgColor;
+        })
+    })
+    </script>
+</body>
+</html>

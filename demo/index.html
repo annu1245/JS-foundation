@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            color: white;
+            width: 400px;
+            height: 600px;
+            background-color: #212121;
+            text-align: center;
+        }
+        .games {
+            margin: 10px;
+        }
+        .one {
+            line-height: 30px;
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 5px;
+            color: black;
+            cursor: pointer;
+        }
+        .one:hover {
+            background-color: rgb(185, 189, 193);
+        }
+        a{
+            text-decoration: none;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Js small handsOns</h2>
+        <h4>Below are the few javascript projects</h4>
+        <div class="games">
+            <div class="one"><a href="./BMICalc/index.html">Bmi Calculator</a></div>
+            <div class="one"><a href="./guessNumber/index.html">Guess Number</a></div>
+            <div class="one"><a href="./keyPress/index.html">Key Press</a></div>
+            <div class="one"><a href="./randomColor/index.html">Random Color</a></div>
+        </div>
+    </div>
+    <script>
+    function checkClick(elem) {
+       elem.addEventListener("click", (e) => {
+            let anchorTag = e.target.firstChild;
+            anchorTag.click();
+       })
+    }
+
+    document.querySelectorAll('.one').forEach((elem) => checkClick(elem));
+
+    </script>
+</body>
+</html>

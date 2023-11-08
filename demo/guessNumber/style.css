@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    font-size: 1.2rem;
+}
+
+#wrapper {
+    text-align: center;
+    height: 600px;
+    width: 500px;
+    border: 1px solid black;
+    background-color: #2e2c2c;
+}
+
+form {
+    padding: 20px;
+}
+
+.newGame {
+    color: aqua;
+    cursor:pointer;
+}
+
+#number{
+    line-height: 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 10px;
+}
+
+#number:focus {
+    outline: none;
+}
+
+#submit {
+   padding: 10px 20px;
+   border-radius: 10px;
+   font-size: 1.2rem;
+   border: none;
+   background-color: aqua;
+   color:black;
+   cursor: pointer;
+}
+
+#submit:hover{
+    background-color: rgb(78, 5, 212);
+    color: white;
+}
