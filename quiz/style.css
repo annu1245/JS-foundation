@@ -51,7 +51,7 @@ body {
 }
 
 .options:nth-child(3) {
-    border: 4px solid yellow;
+    border: 4px solid yellowgreen;
 }
 
 .options:nth-child(4) {
@@ -61,3 +61,18 @@ body {
 h1{
     color: tomato;
 }
+
+.task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task button {
+    padding: 8px 30px;
+    background-color: violet;
+    cursor: pointer;
+    font-size: 1.1rem;
+    border: none;
+}
+
