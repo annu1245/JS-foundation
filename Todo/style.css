@@ -83,15 +83,15 @@ input :focus{
     justify-content: space-between;
 
 }
-.completed_task > i {
-    font-size: 1.8rem;
-    color: #4a4a48;
-}
-.completed_task > p {
+
+.completed_task > p{
     text-decoration: line-through;
     color:#4a4a48;
 }
 
+.com, .time{
+    color: #4a4a48 !important;
+}
 .com_tsk{
     text-align: center;
     margin-top: 2em;

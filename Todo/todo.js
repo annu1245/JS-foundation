@@ -6,13 +6,26 @@ clearBtn = document.getElementById('clear_btn');
 completedTaskList = document.querySelector('.task_done');
 //click Event on Submit Button
 function getIndex() {
-    let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask":{},
-                    "completedTask" : {}};
-    let arr = Object.keys(myTodoData?.runningTask).length;
-    let arr2 = Object.keys(myTodoData?.completedTask).length;
-    let nextIndCount = arr + arr2 + 1;
-    return nextIndCount;
+    let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask":{},"completedTask" : {}};
+    let arr = Object.keys(myTodoData?.runningTask);
+    let arr2 = Object.keys(myTodoData?.completedTask);
+    let nar = arr.concat(arr2);
+    if(nar.length == 0) {
+    console.log("nar", nar)
+
+        return 0;
+    }else{
+        let maxInd = Math.max(...nar)+1;
+    console.log("nar", maxInd);
+
+        return maxInd;
+    }
+    // let nextIndCount = arr + arr2 + 1;
+    // return nextIndCount;
+    return 1;
 }
+
+getIndex();
 
 submintBtn.addEventListener("click", function() {
     console.log("submit");
@@ -81,14 +94,15 @@ function addListeners() {
 }
 
 function addComptaskListener(compElement) {
+    console.log("outer");
     compElement.addEventListener('click', (elem) => {
+        console.log("inner", elem.target);
         const text = elem.target.parentElement.firstChild.innerHTML;
         const id = parseInt(elem.target.parentElement.getAttribute('index'));
-        const date = new Date();
-        let currTime = date.toLocaleTimeString();
+        const currTime = new Date().getTime();
         console.log(text, id);
         elem.target.parentElement.style.display = 'none';
-        addCompletedDiv(text, date, id);
+        addCompletedDiv(text, currTime, id);
         setLocal(text, id, true, currTime);
     })
 }
@@ -148,14 +162,88 @@ function addDeleteListener(delElement) {
     }) 
 }
 
+function getTime(storedTimestamp) {
+        // Retrieve the timestamp from localStorage
+    
+        // Check if there's a stored timestamp
+        if (storedTimestamp) {
+            // Convert the stored timestamp to a number
+            const completionTime = new Date(parseInt(storedTimestamp, 10));
+    
+            // Get the current time
+            const currentTime = new Date();
+    
+            // Calculate the time difference in milliseconds
+            const timeDifference = currentTime - completionTime;
+    
+            // Display the task completion information
+            //const taskCompletionInfo = document.getElementById("taskCompletionInfo");
+            // taskCompletionInfo.textContent = `You completed this task ${formatTimeDifference(timeDifference)} ago`;
+            // return `${formatTimeDifference(timeDifference)} ago`;
+            let mytime = formatTimeDifference(timeDifference);
+            if(mytime === 'just now'){
+                return mytime;
+            }else{
+                return `${mytime} ago`;
+            }
+
+
+        } else {
+            // No stored timestamp found
+            console.log("No task completion timestamp found in localStorage.");
+        }
+    
+        // Function to format the time difference
+        function formatTimeDifference(timeDifference) {
+            const seconds = Math.floor(timeDifference / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(months / 12);
+    
+            if (years > 0) return `${years} year${years > 1 ? 's' : ''}`;
+            if (months > 0) return `${months} month${months > 1 ? 's' : ''}`;
+            if (days > 0) return `${days} day${days > 1 ? 's' : ''}`;
+            if (hours > 0) return `${hours} hour${hours > 1 ? 's' : ''}`;
+            if (minutes > 0) return `${minutes} minute${minutes > 1 ? 's' : ''}`;
+            if (seconds > 0) return `${seconds} second${seconds > 1 ? 's' : ''}`;
+            
+            return 'just now';
+        }
+   
+    
+}
+
 function addCompletedDiv(data, time, id) {
-    console.log("-------------",completedTaskList)
-    console.log(data, time, id);
-    text =  `<div class="completed_task" index=${id} time=${time}>
-                <p>${data}</p>
-                <i class="fa-solid fa-check-double"></i>
-            </div>`
-    completedTaskList.insertAdjacentHTML('beforeend',text);
+
+    let currT = getTime(time);
+    // console.log("------$$-------",completedTaskList)
+    // console.log(data, currT, id);
+    // text =  `<div class="completed_task" index=${id} time=${currT}>
+    //             <p>${data}</p>
+    //             <div>
+    //             <i class="fa-solid fa-check-double com"></i>
+    //             <span class="time">${currT}</span>
+    //             </div>
+    //         </div>`
+    // completedTaskList.insertAdjacentHTML('beforeend',text);
+
+
+    let comDiv = document.createElement('div');
+    comDiv.classList.add('completed_task');
+    comDiv.setAttribute('index', id);
+    comDiv.setAttribute('time', currT);
+
+    let pTag = document.createElement('p');
+    pTag.innerHTML = data;
+    let timeStamp = document.createElement('div');
+    let tm = `<i class="fa-solid fa-check-double com"></i>
+                <span class="time">${currT}</span>`
+    timeStamp.innerHTML = tm;
+    comDiv.appendChild(pTag);
+    comDiv.appendChild(timeStamp);
+    completedTaskList.appendChild(comDiv);
 }
 
 // ---------- ----------- LocalStorage ---------------- ------------//
@@ -172,17 +260,6 @@ function setLocal(data, index, completed=false, currTime) {
         myTodoData.runningTask[index] = data;
     }
     localStorage.setItem("mytododata", JSON.stringify(myTodoData));
-    // "mytodo" = {
-
-    //     "runningTask" : {"0":"sdkfhb", "1": "dffdsigf"},
-
-    //     "completedTask" : {
-    //         "0" : ['dfkdj', "time"],
-    //         "1" : ["dssfu", "time"]
-    //     }
-    // }
-
-
 }
 
 
