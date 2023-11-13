@@ -5,33 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-    <style>
-        .te{
-  border: 1px solid #ccc;
-  display: block;
-  width: 100%;
-  overflow: hidden;
-  resize: both;
-  min-height: 40px;
-  line-height: 20px;
-}
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet">
 
-/* Just for demo */
-
-</style>
+<title>Todo List</title>
 </head>
 <body>
+    <button id="test1">store</button>
+    <button id="test2">get</button>
+    <button id="test3">clear</button>
+
     <div class="main">
         <h1> My TODO </h1>
-            <div>
-                <input placeholder="start writing your todoes"/>
-                <button id="submit"> submit </button>
-            </div>
-            <div id="list"></div>
+        <div class="user_input">
+            <input placeholder="start writing your todoes"/>
+            <button id="submit"> submit </button>
+        </div>
+        <div id="list"></div>
+        <div class="task_done">
+            <h2 class="com_tsk">Completed Tasks</h2>
+           
+        </div>
+        <div class="clr_container">
             <button id="clear_btn">clear All</button>
         </div>
+    </div>
 
 </body>
 </html>

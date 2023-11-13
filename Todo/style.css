@@ -1,34 +1,61 @@
 *{
     box-sizing: border-box;
+    font-family: 'Playpen Sans', cursive;
+    color: aliceblue;
 
+}
+body {
+    background-image: linear-gradient(to right, #413d3c 0%, #7b7b72 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+h1 {
+    text-align: center;
 }
 
 .main {
-    width: 90vw;
-    height:90vh;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    width: 500px;
 }
+
 input {
-    width: 300px;
-    font-size: 1.2em;
+    width: 72%;
+    font-size: 1.4em;
     padding: 5px;
+    line-height: 30px;
     margin: 10px;
     border: none;
-    border-bottom: 2px solid black;
+    border-bottom: 4px solid rgb(218, 216, 216);
+    background-color: transparent;
 }
-#submit {
-    width: 100px;
-    height: 35px;
+input:focus {
+    outline: none;
+}
+
+#submit, #clear_btn {
+    text-transform: capitalize;
+    padding: 5px 20px;
     font-size: 1.2em;
-    background-color: tomato;
+    background-color: rgb(3, 3, 2);
+    color: aliceblue;
     border: none;
-    border-radius: 30px;
+    border-radius: 5px;
     cursor: pointer;
 }
-*:focus {
-    outline: none;
+
+#submit:hover {
+    background-color :#33302e;
+}
+
+.clr_container {
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
 }
 
 input :focus{
@@ -37,29 +64,72 @@ input :focus{
 }
 
 .elem {
-    background-color:yellow;
-    width: 400px;
+    flex: 1;
+    background-color:rgb(35, 35, 34);
+    width: 100%;
     display: flex;
     padding: 10px;
     align-items: center;
     font-size: 1.1em;
     margin: 10px 0px;
-    position: relative;
 }
 
-.edit {
-    background-color: rgb(10, 241, 29);
-    padding: 10px 15px;
-    margin:  0px 5px;
+.completed_task {
+    margin: 10px 0px;
+    padding: 0px 10px;
+    background-color:rgb(35, 35, 34);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+.completed_task > i {
+    font-size: 1.8rem;
+    color: #4a4a48;
+}
+.completed_task > p {
+    text-decoration: line-through;
+    color:#4a4a48;
+}
+
+.com_tsk{
+    text-align: center;
+    margin-top: 2em;
+}
+.task_done {
+    margin: 10px 0px;
+}
+#test1, #test2, #test3 {
+    background-color: aquamarine;
+    color: black;
+}
+
+
+
+.elem > button {
+    border: none;
     cursor: pointer;
+
+}
+.fa-solid, .fa-regular {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: rgb(238, 235, 235);
+
+}
+.edit {
+    background-color: rgb(3, 166, 17);
 }
 
 .del {
-    background-color: red;
-    padding: 10px 15px;
-    margin: 0px 5px;
-    cursor: pointer; 
+    background-color: rgb(143, 4, 4);
 }
+
+.done {
+    background-color: rgb(100, 96, 96);
+}
+
 .fa-regular, .fa-solid {
     pointer-events: none;
 }
@@ -67,6 +137,8 @@ input :focus{
 .textEffect {
     text-decoration: line-through;
 }
+
+
 
 .removed-item {
     animation: removed-item-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
@@ -103,10 +175,49 @@ input :focus{
 	}
 }
 
+.completed-box {
+	animation: slide-down .3s linear;
+}
 
-.text-area {
-display: block;
-width: 100%;
-overflow: hidden;
-line-height: 25px;
+
+@keyframes slide-down {
+    0% {
+        opacity: 1;
+        transform: rotateZ(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(600px) rotateZ(90deg);
+    }
+}
+
+.text-area, .edit_textArea {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    line-height: 25px;
+    margin-right: 5px;
+
+}
+
+.edit_textArea {
+   background-color: #4a4a48; 
+   outline: none;
+   line-height: 30px;
+}
+
+/* Media Query for Mobile Screens */
+@media only screen and (max-width: 600px) {
+    .main {
+        width: 90%;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    #submit{
+        margin-left: 4.5em;
+    }
 }
