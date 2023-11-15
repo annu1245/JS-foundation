@@ -4,20 +4,20 @@ userInput = document.querySelector('input');
 testbtn = document.getElementById('test');
 clearBtn = document.getElementById('clear_btn');
 completedTaskList = document.querySelector('.task_done');
+const comHeading = document.querySelector('.com_tsk');
 //click Event on Submit Button
+
+comHeading.style.visibility = "hidden";
+
 function getIndex() {
     let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask":{},"completedTask" : {}};
     let arr = Object.keys(myTodoData?.runningTask);
     let arr2 = Object.keys(myTodoData?.completedTask);
     let nar = arr.concat(arr2);
     if(nar.length == 0) {
-    console.log("nar", nar)
-
         return 0;
     }else{
         let maxInd = Math.max(...nar)+1;
-    console.log("nar", maxInd);
-
         return maxInd;
     }
     // let nextIndCount = arr + arr2 + 1;
@@ -38,7 +38,7 @@ submintBtn.addEventListener("click", function() {
         clearBtn.style.display = 'block';
         addDiv(input_val, todoIndex);
         setLocal(input_val, todoIndex, false, 'time');
-        addListeners();
+        // addListeners();
         userInput.value = '';
     } 
     else {
@@ -84,6 +84,10 @@ function addDiv(input_val, todoIndex) {
     elemDiv.appendChild(del);
     listDiv.appendChild(elemDiv);
     setTimeout(() => elemDiv.classList.remove('new-box'), 300);
+    addComptaskListener(done);
+    addEditListener(edit);
+    addDeleteListener(del);
+
 }
 
 //add Listeners to the edit and delete button
@@ -94,7 +98,6 @@ function addListeners() {
 }
 
 function addComptaskListener(compElement) {
-    console.log("outer");
     compElement.addEventListener('click', (elem) => {
         console.log("inner", elem.target);
         const text = elem.target.parentElement.firstChild.innerHTML;
@@ -102,7 +105,7 @@ function addComptaskListener(compElement) {
         const currTime = new Date().getTime();
         console.log(text, id);
         elem.target.parentElement.style.display = 'none';
-        addCompletedDiv(text, currTime, id);
+        addCompletedDiv(text, currTime, id, "calledfromListener");
         setLocal(text, id, true, currTime);
     })
 }
@@ -126,10 +129,12 @@ function addEditListener(editElement) {
             alert("not a valid todo");
             //---------------------------------
            }else {
+            console.log("update local called")
             updateLocal(text, elemIndex); 
            }
         }
         else{
+            console.log("edit")
             // edit permission -> remove readonly and display textarea to edit
             element.target.innerHTML = '<i class="fa-regular fa-circle-check">';
             textArea.setAttribute('contenteditable', 'true');
@@ -215,35 +220,37 @@ function getTime(storedTimestamp) {
     
 }
 
-function addCompletedDiv(data, time, id) {
+function addCompletedDiv(data, time, id, st) {
+    const currT = getTime(time);
+    console.log(data, currT, id);
+    text =  `<div class="completed_task" index=${id} time=${currT}>
+                <p>${data}</p>
+                <div>
+                <i class="fa-solid fa-check-double com"></i>
+                <span class="time">${currT}</span>
+                </div>
+            </div>`
+    completedTaskList.insertAdjacentHTML('beforeend',text);
 
-    let currT = getTime(time);
-    // console.log("------$$-------",completedTaskList)
-    // console.log(data, currT, id);
-    // text =  `<div class="completed_task" index=${id} time=${currT}>
-    //             <p>${data}</p>
-    //             <div>
-    //             <i class="fa-solid fa-check-double com"></i>
-    //             <span class="time">${currT}</span>
-    //             </div>
-    //         </div>`
-    // completedTaskList.insertAdjacentHTML('beforeend',text);
+    if(completedTaskList.children.length === 1){
+        comHeading.style.visibility = "visible";
+        
+        console.log("I have one child ji");
+    }
+    // let comDiv = document.createElement('div');
+    // comDiv.classList.add('completed_task');
+    // comDiv.setAttribute('index', id);
+    // comDiv.setAttribute('time', currT);
 
-
-    let comDiv = document.createElement('div');
-    comDiv.classList.add('completed_task');
-    comDiv.setAttribute('index', id);
-    comDiv.setAttribute('time', currT);
-
-    let pTag = document.createElement('p');
-    pTag.innerHTML = data;
-    let timeStamp = document.createElement('div');
-    let tm = `<i class="fa-solid fa-check-double com"></i>
-                <span class="time">${currT}</span>`
-    timeStamp.innerHTML = tm;
-    comDiv.appendChild(pTag);
-    comDiv.appendChild(timeStamp);
-    completedTaskList.appendChild(comDiv);
+    // let pTag = document.createElement('p');
+    // pTag.innerHTML = data;
+    // let timeStamp = document.createElement('div');
+    // let tm = `<i class="fa-solid fa-check-double com"></i>
+    //             <span class="time">${currT}</span>`
+    // timeStamp.innerHTML = tm;
+    // comDiv.appendChild(pTag);
+    // comDiv.appendChild(timeStamp);
+    // completedTaskList.appendChild(comDiv);
 }
 
 // ---------- ----------- LocalStorage ---------------- ------------//
@@ -287,16 +294,16 @@ function getLocal() {
         for(let key in completedTodo) {
             if(completedTodo.hasOwnProperty(key)){
                 let arr = completedTodo[key];
-                addCompletedDiv(arr[0], arr[1], key);
+                addCompletedDiv(arr[0], arr[1], key, "calledFromGetLocal");
             }
         }
     }
 }
 
 function updateLocal(updatedText, index) {
-    let myTodoData = JSON.parse(localStorage.getItem("mytodo"));
-    myTodoData[index] = updatedText;
-    localStorage.setItem("mytodo", JSON.stringify(myTodoData));
+    let myTodoData = JSON.parse(localStorage.getItem("mytododata"));
+    myTodoData.runningTask[index] = updatedText;
+    localStorage.setItem("mytododata", JSON.stringify(myTodoData));
 }
 
 function removeLocal(index) {
@@ -308,11 +315,12 @@ function removeLocal(index) {
 clearBtn.addEventListener("click", function() {
     localStorage.clear();
     clearBtn.style.display = 'none';
+    comHeading.style.visibility = "hidden";
+
     // location.reload();
     getLocal();
 })
 
 window.onload = (event) =>{
     getLocal();
-    addListeners();
 };
