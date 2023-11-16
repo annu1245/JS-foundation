@@ -1,9 +1,9 @@
-submintBtn = document.getElementById("submit");
-listDiv = document.querySelector("#list");
-userInput = document.querySelector('input');
-testbtn = document.getElementById('test');
-clearBtn = document.getElementById('clear_btn');
-completedTaskList = document.querySelector('.task_done');
+const submintBtn = document.getElementById("submit");
+const listDiv = document.querySelector("#list");
+const userInput = document.querySelector('input');
+const testbtn = document.getElementById('test');
+const clearBtn = document.getElementById('clear_btn');
+const completedTaskList = document.querySelector('.task_done');
 const comHeading = document.querySelector('.com_tsk');
 //click Event on Submit Button
 
@@ -11,38 +11,30 @@ comHeading.style.visibility = "hidden";
 
 function getIndex() {
     let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask":{},"completedTask" : {}};
-    let arr = Object.keys(myTodoData?.runningTask);
-    let arr2 = Object.keys(myTodoData?.completedTask);
-    let nar = arr.concat(arr2);
-    if(nar.length == 0) {
+    let arr1 = Object.keys(myTodoData.runningTask);
+    let arr2 = Object.keys(myTodoData.completedTask);
+    let allArr = arr1.concat(arr2);
+    if(allArr.length == 0) {
         return 0;
     }else{
-        let maxInd = Math.max(...nar)+1;
+        let maxInd = Math.max(...allArr)+1;
         return maxInd;
     }
-    // let nextIndCount = arr + arr2 + 1;
-    // return nextIndCount;
-    return 1;
 }
-
-getIndex();
 
 submintBtn.addEventListener("click", function() {
     console.log("submit");
     //get the index for the next div
     let todoIndex = getIndex();
-    console.log("todoIndex", todoIndex);
-    // todoIndex.length == 0 ? clearBtn.style.display = 'none' : clearBtn.style.display = 'block';
-    input_val = (userInput.value).trim(); //trim the extra spaces
-    if (input_val != '' || input_val != undefined) {
+    input_val = userInput.value.trim(); //trim the extra spaces
+    if(input_val === '' || input_val === undefined) {
+        alert("please enter a todo");
+        return;
+    }else {
         clearBtn.style.display = 'block';
         addDiv(input_val, todoIndex);
         setLocal(input_val, todoIndex, false, 'time');
-        // addListeners();
         userInput.value = '';
-    } 
-    else {
-        alert("please write your todo");
     }
 })
 
@@ -50,7 +42,6 @@ function checkRemainingTodo() {
     let todoIndex = listDiv.getElementsByClassName('elem').length;
     todoIndex == 0 ? clearBtn.style.display = 'none' : clearBtn.style.display = 'block';
 }
-
 
 function addDiv(input_val, todoIndex) {
     elemDiv = document.createElement('div');
@@ -84,17 +75,11 @@ function addDiv(input_val, todoIndex) {
     elemDiv.appendChild(del);
     listDiv.appendChild(elemDiv);
     setTimeout(() => elemDiv.classList.remove('new-box'), 300);
+
     addComptaskListener(done);
     addEditListener(edit);
     addDeleteListener(del);
 
-}
-
-//add Listeners to the edit and delete button
-function addListeners() {
-    document.querySelectorAll('.edit').forEach((editDiv) => addEditListener(editDiv));
-    document.querySelectorAll('.del').forEach((delDiv) => addDeleteListener(delDiv));
-    document.querySelectorAll('.done').forEach((compDiv) => addComptaskListener(compDiv));
 }
 
 function addComptaskListener(compElement) {
@@ -116,8 +101,13 @@ function addEditListener(editElement) {
         let textArea = element.target.parentElement.firstChild;
         //check either clicked to edit the todo or edit is done
         let isEditable = textArea.getAttribute('contenteditable'); //default-false
+        let doneBtn = element.target.parentElement.getElementsByTagName('button')[0];
+
         if(isEditable === "true") {
            // done update -> set readonly and remove the editable textarea
+           doneBtn.style.display = 'block';
+           element.target.style.backgroundColor = 'green';
+
            textArea.setAttribute('contenteditable', 'false');
            textArea.classList.remove('edit_textArea');
            textArea.classList.add('text-area');
@@ -127,16 +117,19 @@ function addEditListener(editElement) {
            let text = textArea.innerText.trim();
            if(text === ''){
             alert("not a valid todo");
-            //---------------------------------
+            let mytodoData = JSON.parse(localStorage.getItem('mytododata'));
+            textArea.innerHTML = mytodoData.runningTask[elemIndex]; //back the original string
            }else {
             console.log("update local called")
             updateLocal(text, elemIndex); 
            }
         }
         else{
-            console.log("edit")
             // edit permission -> remove readonly and display textarea to edit
             element.target.innerHTML = '<i class="fa-regular fa-circle-check">';
+            console.log(element.target);
+            element.target.style.backgroundColor = '#87630a';
+            doneBtn.style.display = 'none';
             textArea.setAttribute('contenteditable', 'true');
             textArea.classList.remove('text-area');
             textArea.classList.add('edit_textArea');
@@ -168,36 +161,24 @@ function addDeleteListener(delElement) {
 }
 
 function getTime(storedTimestamp) {
-        // Retrieve the timestamp from localStorage
-    
         // Check if there's a stored timestamp
         if (storedTimestamp) {
             // Convert the stored timestamp to a number
             const completionTime = new Date(parseInt(storedTimestamp, 10));
-    
             // Get the current time
             const currentTime = new Date();
-    
             // Calculate the time difference in milliseconds
             const timeDifference = currentTime - completionTime;
-    
-            // Display the task completion information
-            //const taskCompletionInfo = document.getElementById("taskCompletionInfo");
-            // taskCompletionInfo.textContent = `You completed this task ${formatTimeDifference(timeDifference)} ago`;
-            // return `${formatTimeDifference(timeDifference)} ago`;
             let mytime = formatTimeDifference(timeDifference);
             if(mytime === 'just now'){
                 return mytime;
             }else{
                 return `${mytime} ago`;
             }
-
-
         } else {
             // No stored timestamp found
             console.log("No task completion timestamp found in localStorage.");
         }
-    
         // Function to format the time difference
         function formatTimeDifference(timeDifference) {
             const seconds = Math.floor(timeDifference / 1000);
@@ -216,8 +197,6 @@ function getTime(storedTimestamp) {
             
             return 'just now';
         }
-   
-    
 }
 
 function addCompletedDiv(data, time, id, st) {
@@ -234,32 +213,15 @@ function addCompletedDiv(data, time, id, st) {
 
     if(completedTaskList.children.length === 1){
         comHeading.style.visibility = "visible";
-        
-        console.log("I have one child ji");
     }
-    // let comDiv = document.createElement('div');
-    // comDiv.classList.add('completed_task');
-    // comDiv.setAttribute('index', id);
-    // comDiv.setAttribute('time', currT);
-
-    // let pTag = document.createElement('p');
-    // pTag.innerHTML = data;
-    // let timeStamp = document.createElement('div');
-    // let tm = `<i class="fa-solid fa-check-double com"></i>
-    //             <span class="time">${currT}</span>`
-    // timeStamp.innerHTML = tm;
-    // comDiv.appendChild(pTag);
-    // comDiv.appendChild(timeStamp);
-    // completedTaskList.appendChild(comDiv);
 }
 
 // ---------- ----------- LocalStorage ---------------- ------------//
 
 function setLocal(data, index, completed=false, currTime) {
     console.log("setLocal", data, index, completed);
-    let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask":{},
-"completedTask" : {}};
-    console.log(myTodoData);
+    let myTodoData = JSON.parse(localStorage.getItem("mytododata")) ||
+                    {"runningTask":{},"completedTask" : {}};
     if(completed) {
         myTodoData.completedTask[index] = [data, currTime];
         delete myTodoData.runningTask[index];
@@ -313,12 +275,13 @@ function removeLocal(index) {
 }
 
 clearBtn.addEventListener("click", function() {
-    localStorage.clear();
-    clearBtn.style.display = 'none';
-    comHeading.style.visibility = "hidden";
-
-    // location.reload();
-    getLocal();
+    const userConfirmed = window.confirm("delete all todoes..!!");
+    if(userConfirmed) {
+        localStorage.clear();
+        clearBtn.style.display = 'none';
+        comHeading.style.visibility = "hidden";
+        getLocal();
+    }
 })
 
 window.onload = (event) =>{

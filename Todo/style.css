@@ -117,8 +117,8 @@ input :focus{
     cursor: pointer;
     font-size: 1.1rem;
     color: rgb(238, 235, 235);
-
 }
+
 .edit {
     background-color: rgb(3, 166, 17);
 }
@@ -162,6 +162,10 @@ input :focus{
 /* animate new box */
 .new-box {
 	animation: append-animate .3s linear;
+}
+
+.edit_comp {
+    bac
 }
 
 
@@ -220,5 +224,8 @@ input :focus{
 
     #submit{
         margin-left: 4.5em;
+    }
+    .fa-solid, .fa-regular {
+        padding: 8px 6px;
     }
 }
