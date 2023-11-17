@@ -9,136 +9,127 @@ const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const subBtn = document.getElementById('submit');
 const userMessage = document.getElementById('msg');
-
+const listDiv = document.querySelector('.list');
+const number = document.getElementById('number');
+const dispNumDiv = document.querySelector('.disp_num');
 
 
 let count = 0;
-let score = 0;
+let countIndex = 0;
 const len = quizList.length;
 let play = true;
 const userSelectedOptns = {};
 
+
+
+function displayQueue () {
+    for(let i=1; i<=quizList.length; i++) {
+        let sp = document.createElement('span');
+        sp.innerHTML = i;
+        dispNumDiv.appendChild(sp);
+        quizListener(sp);
+    }
+}
+
+function quizListener(spanElem) {
+    spanElem.addEventListener('click', () => {
+        let quizNum = parseInt(spanElem.innerHTML);
+        let obj = quizList[quizNum-1];
+        countIndex = quizNum;
+        listDiv.innerHTML = '';
+        showBtn();
+        displayQuiz(obj);
+    })
+}
+
 nextBtn.addEventListener("click", () => {
-    if(play) {
-        validateInput();
-    }
-   showQuiz();
+    userMessage.innerHTML = '';
+    listDiv.innerHTML = '';
+    showNextQuiz();
+    showBtn();
 })
 
 
-function validateInput() {
-    const userAns = document.getElementById('selected');
-    if(userAns === null || userAns === undefined) {
-        message("please select one option");
+function showNextQuiz() {
+    if(countIndex < quizList.length) {
+        const currentData = quizList[countIndex];
+        countIndex++;
+        displayQuiz(currentData);
     }else {
-        message("");
-        let quizID = quizList[count].id;
-        userSelectedOptns[quizID] =  userAns.innerHTML;
-        if(count < len-1){
-            count += 1;
-            showQuiz();
-        }else{
-            message("game over");
-            gameOver();
-        }
+        message("No more quiz.. Click on Submit")
     }
 }
 
-prevBtn.addEventListener("click", () => {
-    if(count > 0) {
-        count -= 1;
-        showQuiz();
-        showPrevOptn();
-        console.log(userSelectedOptns);
-    }
-})
+function displayQuiz(currData, count = countIndex) {
+    number.innerHTML = `${count}`
+    let quesDiv = document.createElement('div');
+    quesDiv.classList.add('question');
+    quesDiv.innerHTML = currData.question;
 
-function showPrevOptn() {
-    const optnList = document.querySelectorAll('.options');
-    optnList.forEach(ele => {
-        console.log("ele", ele.innerHTML);
-        if(ele.innerHTML === userSelectedOptns[count]){
-            ele.setAttribute('id', 'selected');
-        }
+    let multiOptnDiv = document.createElement('div');
+    multiOptnDiv.classList.add('optin_list');
+
+    currData.options.map((optn) => {
+        let opList = document.createElement('li');
+        opList.classList.add('options');
+        opList.innerHTML = optn;
+        multiOptnDiv.appendChild(opList);
     })
+
+    listDiv.appendChild(quesDiv);
+    listDiv.appendChild(multiOptnDiv);
+
+    selectedOption();
+}
+
+function selectedOption() {
+    let optnArr = document.querySelectorAll('.options');
+    optnArr.forEach((optn) => {
+        optn.addEventListener('click', ()=>{
+            //remove previous selected
+            optnArr.forEach(otherOpn => {
+                otherOpn.removeAttribute('id');
+            });
+            //select new one
+            optn.setAttribute('id', 'selected');
+            userSelectedOptns[countIndex] = optn.innerHTML;
+            console.log(userSelectedOptns);
+        })
+    })
+}
+
+
+
+prevBtn.addEventListener("click", ()=>{
+    listDiv.innerHTML = '';
+    if(countIndex > 1) {
+        countIndex--;
+        if(countIndex === 1) {
+            prevBtn.style.visibility = 'hidden';
+        }else {
+            prevBtn.style.visibility = 'visible';
+        }
+        displayQuiz(quizList[countIndex-1]);
+    }
     
-}
-
-
-subBtn.addEventListener("click", () => {
-    console.log(userSelectedOptns);
-    for (const key in userSelectedOptns) {
-        let userAns = userSelectedOptns[key];
-        console.log(key)
-        if(userAns === quizList[key].answer){
-            score += 1;
-            console.log("score = ", score)
-        }else{
-            console.log("score = ", score);
-        }
-    }
 })
 
 
-
-function gameOver() {
-    play = false;
-}
-
-function message(msg) {
-    userMessage.innerHTML = msg;
-}
-
-
-
-function selectedOption(elem) {
-    elem.addEventListener("click", (optn) => {
-        remPrev();
-        optn.target.setAttribute('id', 'selected')
-    })
-}
-
-function remPrev() {
-    const optList = document.querySelectorAll('.options');
-    optList.forEach(elem => elem.removeAttribute('id'))
-}
-
-function hideShowBtn() {
-    const isEmpty = (Object.keys(userSelectedOptns).length === 0 && userSelectedOptns.constructor === Object);
-    if(isEmpty){
-        subBtn.style.visibility = 'hidden';
+function showBtn() {
+    subBtn.style.visibility = 'visible';
+    if(countIndex === 1) {
         prevBtn.style.visibility = 'hidden';
-
-    }else {
+    }else{
         prevBtn.style.visibility = 'visible';
-        subBtn.style.visibility = 'visible';
-
     }
-
-}
-
-
-function showQuiz() {
-    console.log(count);
-    console.log(userSelectedOptns);
-    const optionList = document.querySelector('.option_list');
-    optionList.innerHTML = '';
-    const qs = document.querySelector('.question');
-    qs.innerHTML = `<h2> ${quizList[count].question} </h2>`;
-
-    const optionArr = quizList[count].options;
-
-   optionArr.forEach((option) => {
-    let optnDiv = document.createElement('div');
-    optnDiv.classList.add('options');
-    optnDiv.innerHTML = option;
-    optionList.appendChild(optnDiv);
-   })
-   hideShowBtn();
-document.querySelectorAll('.options').forEach((option) => selectedOption(option))
 }
 
 
 
-showQuiz();
-hideShowBtn();
+window.onload = function () {
+    displayQueue();
+    showNextQuiz();
+    console.log("onload", countIndex);
+    prevBtn.style.visibility = 'hidden';
+    subBtn.style.visibility = 'hidden';
+}
