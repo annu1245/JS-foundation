@@ -105,6 +105,11 @@ input :focus{
     color: black;
 }
 
+#error_msg {
+    color: red;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
 
 
 .elem > button {

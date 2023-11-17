@@ -5,9 +5,10 @@ const testbtn = document.getElementById('test');
 const clearBtn = document.getElementById('clear_btn');
 const completedTaskList = document.querySelector('.task_done');
 const comHeading = document.querySelector('.com_tsk');
-//click Event on Submit Button
+const errorMsg = document.getElementById('error_msg');
 
 comHeading.style.visibility = "hidden";
+errorMsg.style.display = "none";
 
 function getIndex() {
     let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask":{},"completedTask" : {}};
@@ -28,9 +29,11 @@ submintBtn.addEventListener("click", function() {
     let todoIndex = getIndex();
     input_val = userInput.value.trim(); //trim the extra spaces
     if(input_val === '' || input_val === undefined) {
-        alert("please enter a todo");
+        errorMsg.style.display = 'block';
+        errorMsg.innerHTML = 'Please enter some todo text';
         return;
     }else {
+        errorMsg.style.display = "none";
         clearBtn.style.display = 'block';
         addDiv(input_val, todoIndex);
         setLocal(input_val, todoIndex, false, 'time');
@@ -232,8 +235,7 @@ function setLocal(data, index, completed=false, currTime) {
 }
 
 
-function getLocal() {
-    let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask" : {}, "completedTask" : {}};
+function getRunningTask(myTodoData) {
     let runningTodo = myTodoData.runningTask;
     if (runningTodo === null || Object.keys(runningTodo).length === 0) {
         listDiv.innerHTML = '';
@@ -247,7 +249,9 @@ function getLocal() {
             }
         }
     }
+}
 
+function getCompletedTask(myTodoData) {
     let completedTodo = myTodoData.completedTask;
     if(completedTodo === null || Object.keys(completedTodo).length === 0) {
         completedTaskList.innerHTML = '';
@@ -260,6 +264,13 @@ function getLocal() {
             }
         }
     }
+}
+
+function getLocal() {
+    let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {"runningTask" : {}, "completedTask" : {}};
+    getRunningTask(myTodoData);
+    getCompletedTask(myTodoData);
+   
 }
 
 function updateLocal(updatedText, index) {
@@ -275,7 +286,7 @@ function removeLocal(index) {
 }
 
 clearBtn.addEventListener("click", function() {
-    const userConfirmed = window.confirm("delete all todoes..!!");
+    const userConfirmed = window.confirm("This will delete all todoes..!!");
     if(userConfirmed) {
         localStorage.clear();
         clearBtn.style.display = 'none';
