@@ -10,6 +10,7 @@ const errorMsg = document.getElementById("error_msg");
 comHeading.style.visibility = "hidden";
 errorMsg.style.display = "none";
 
+// Get the next index number to store new todo
 function getIndex() {
     let myTodoData = JSON.parse(localStorage.getItem("mytododata")) || {
         runningTask: {},
@@ -27,6 +28,7 @@ function getIndex() {
 }
 
 submintBtn.addEventListener("click", function () {
+    userInput.focus();
     //get the index for the next div
     let todoIndex = getIndex();
     input_val = userInput.value.trim(); //trim the extra spaces
@@ -40,6 +42,14 @@ submintBtn.addEventListener("click", function () {
         addDiv(input_val, todoIndex);
         setLocal(input_val, todoIndex, false, "time");
         userInput.value = "";
+    }
+});
+
+userInput.addEventListener('keyup', function(event) {
+    // Check if the pressed key is Enter (key code 13)
+    if (event.keyCode === 13) {
+      // Trigger the click event of the submit button
+        submintBtn.click();
     }
 });
 
@@ -291,4 +301,7 @@ clearBtn.addEventListener("click", function () {
     }
 });
 
-window.onload = () => getLocal();
+window.onload = () => {
+    userInput.focus();
+    getLocal();
+}
