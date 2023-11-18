@@ -1,0 +1,82 @@
+[
+    {
+        "id" : 1,
+        "question" : "Which operator is used to get all the columns of a database table?",
+        "answer" : "*",
+        "options" : ["#", "*", "@", "Telephone operator"]
+    },
+    {
+        "id" : 2,
+        "question" : "% is used to perform what type of search?",
+        "answer" : "Wildcard",
+        "options" : ["Wildcard", "Scorecard", "Flashcard", "Microcard"]
+    },
+    {
+        "id" : 3,
+        "question" : "Which clause is used to sort the table?",
+        "answer" : "ORDER BY",
+        "options" : ["SORT BY", "REARRANGE BY", "ORDER BY", "ADJUST"]
+    },
+    {
+        "id" : 4,
+        "question" : "Which clause is used to skip a certain number of rows in the final result?",
+        "answer" : "OFFSET",
+        "options" : ["OFFSET", "ORDER BY", "GROUP BY", "SKIP"]
+    },
+    {
+        "id" : 5,
+        "question" : "Which clause is used to define a custom column header name?",
+        "answer" : "AS",
+        "options" : ["RENAME", "MODIFY", "CHANGE", "AS"]
+    },
+    {
+        "id" : 6,
+        "question" : "State whether the below statement is True or False. The columns used in the GROUP BY clause must be present in the Select clause.",
+        "answer" : "False",
+        "options" : ["True", "False"]
+    },
+    {
+        "id" : 7,
+        "question" : "You have a table with cricket scores of players and you want to retrieve second, third and fourth highest scores. Select the correct query for this",
+        "answer" : "SELECT * from player_stats ORDER BY score DESC LIMIT 3 OFFSET 1",
+        "options" : [
+            "SELECT * from player_stats ORDER BY score DESC LIMIT 3 OFFSET 2",         
+            "SELECT * from player_stats ORDER BY score ASC LIMIT 3 OFFSET 1", 
+            "SELECT * from player_stats ORDER BY score DESC LIMIT 3 OFFSET 1", 
+            "SELECT * from player_stats GROUP BY score DESC LIMIT 3 OFFSET 2"
+            ]
+    },
+    {
+        "id" : 8,
+        "question" : "Write a query to retrieve movies whose title start with THE and their rating is between 5 and 6 (including 6 but excluding 5)",
+        "answer" : "SELECT * from movies WHERE imdb_rating>5 and imdb_rating <=6 and title LIKE 'The%'",
+        "options" : [
+        "SELECT * from movies WHERE imdb_rating between 5 AND 6 and title LIKE'%The%'", 
+        "SELECT * from movies WHERE imdb_rating between 5 AND 6 and title LIKE 'THE%'", 
+        "SELECT * from movies WHERE imdb_rating>5 and imdb_rating <6 and title LIKE 'THE%'",
+        "SELECT * from movies WHERE imdb_rating>5 and imdb_rating <=6 and title LIKE 'The%'"
+        ]
+    },
+    {
+        "id" : 9,
+        "question" : "You have a customers table with customer_id as a primary key. Write a query to select all ODD customer_id records",
+        "answer" : "SELECT * from customers WHERE customer_id % 2 = 1",
+        "options" : [
+                    "SELECT * from customers WHERE customer_id % 2 = 0", 
+                    "SELECT * from customers WHERE customer_id % 2 = 1", 
+                    "SELECT * from customers WHERE IS_ODD(customer_id) = True", 
+                    "SELECT * from customers WHERE MOD(customer_id, 2) = 0"
+                    ]
+    },
+    {
+        "id" : 10,
+        "question" : "For movies table, write a query to print (1) count of distinct imdb_rating (2) standard deviation of imdb_rating (HINT: Use your google skills)",
+        "answer" : "SELECT count(distinct imdb_rating), STDDEV(imdb_rating) from movies",
+        "options" : [
+        "SELECT count(distinct imdb_rating), STDDEV(imdb_rating) from movies", 
+        "SELECT DISTINCT imdb_rating, STDDEV(imdb_rating) from movies",
+        "SELECT count(distinct imdb_rating), STD_DEV(imdb_rating) from movies", 
+        "SELECT count(*), STD_DEV(imdb_rating) from movies where DINSTICT(imdb_rating)=1"
+        ]
+    }
+]
