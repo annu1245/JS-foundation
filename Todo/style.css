@@ -1,17 +1,14 @@
-*{
+* {
     box-sizing: border-box;
-    font-family: 'Playpen Sans', cursive;
+    font-family: "Playpen Sans", cursive;
     color: aliceblue;
-
 }
 body {
-    /* background-image: linear-gradient(to right, #413d3c 0%, #7b7b72 100%); */
     background-image: linear-gradient(to right, #434343 0%, #2c2c2c 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
 
 h1 {
@@ -38,7 +35,8 @@ input:focus {
     outline: none;
 }
 
-#submit, #clear_btn {
+#submit,
+#clear_btn {
     text-transform: capitalize;
     padding: 5px 20px;
     font-size: 1.2em;
@@ -50,7 +48,7 @@ input:focus {
 }
 
 #submit:hover {
-    background-color :#5d5c5c;
+    background-color: #5d5c5c;
 }
 
 .clr_container {
@@ -59,14 +57,14 @@ input:focus {
     align-items: center; /* Vertical centering */
 }
 
-input :focus{
+input :focus {
     outline: none;
     border: none;
 }
 
 .elem {
     flex: 1;
-    background-color:#000000;
+    background-color: #000000;
     width: 100%;
     display: flex;
     padding: 10px;
@@ -78,31 +76,27 @@ input :focus{
 .completed_task {
     margin: 10px 0px;
     padding: 0px 10px;
-    background-color:rgb(35, 35, 34);
+    background-color: rgb(35, 35, 34);
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
-.completed_task > p{
+.completed_task > p {
     text-decoration: line-through;
-    color:#4a4a48;
+    color: #4a4a48;
 }
 
-.com, .time{
+.com,
+.time {
     color: #4a4a48 !important;
 }
-.com_tsk{
+.com_tsk {
     text-align: center;
     margin-top: 2em;
 }
 .task_done {
     margin: 10px 0px;
-}
-#test1, #test2, #test3 {
-    background-color: aquamarine;
-    color: black;
 }
 
 #error_msg {
@@ -111,13 +105,12 @@ input :focus{
     font-weight: 800;
 }
 
-
 .elem > button {
     border: none;
     cursor: pointer;
-
 }
-.fa-solid, .fa-regular {
+.fa-solid,
+.fa-regular {
     padding: 10px 12px;
     cursor: pointer;
     font-size: 1.1rem;
@@ -136,15 +129,14 @@ input :focus{
     background-color: rgb(100, 96, 96);
 }
 
-.fa-regular, .fa-solid {
+.fa-regular,
+.fa-solid {
     pointer-events: none;
 }
 
 .textEffect {
     text-decoration: line-through;
 }
-
-
 
 .removed-item {
     animation: removed-item-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
@@ -156,7 +148,7 @@ input :focus{
     0% {
         opacity: 1;
         transform: rotateZ(0);
-}
+    }
 
     100% {
         opacity: 0;
@@ -166,29 +158,23 @@ input :focus{
 
 /* animate new box */
 .new-box {
-	animation: append-animate .3s linear;
+    animation: append-animate 0.3s linear;
 }
-
-.edit_comp {
-    bac
-}
-
 
 @keyframes append-animate {
-	from {
-		transform: scale(0);
-		opacity: 0;
-	}
-	to {
-		transform: scale(1);
-		opacity: 1;	
-	}
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .completed-box {
-	animation: slide-down .3s linear;
+    animation: slide-down 0.3s linear;
 }
-
 
 @keyframes slide-down {
     0% {
@@ -202,19 +188,19 @@ input :focus{
     }
 }
 
-.text-area, .edit_textArea {
+.text-area,
+.edit_textArea {
     display: block;
     width: 100%;
     overflow: hidden;
     line-height: 25px;
     margin-right: 5px;
-
 }
 
 .edit_textArea {
-   background-color: #2d2d2c; 
-   outline: none;
-   line-height: 30px;
+    background-color: #2d2d2c;
+    outline: none;
+    line-height: 30px;
 }
 
 /* Media Query for Mobile Screens */
@@ -227,10 +213,11 @@ input :focus{
         width: 100%;
     }
 
-    #submit{
+    #submit {
         margin-left: 4.5em;
     }
-    .fa-solid, .fa-regular {
+    .fa-solid,
+    .fa-regular {
         padding: 8px 6px;
     }
 }
