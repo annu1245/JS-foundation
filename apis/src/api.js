@@ -6,7 +6,7 @@ const apiData = require("./assets/data.json");
 const app = express();
 app.use(cors());
 
-app.get("/.netlify/functions/api/get-quiz-questions", (req, res) => {
+app.get("/api/get-quiz-questions", (req, res) => {
     return res.json(apiData);
 });
 
