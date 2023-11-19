@@ -16,7 +16,7 @@ router.get("/get-quiz-questions", (req, res) => {
 //     return res.json(apiData);
 // });
 
-app.use(`/.netlify/functions/api`, router);
+app.use('/api/', router);
 
 module.exports = app;
 module.exports.handler = serverless(app);
