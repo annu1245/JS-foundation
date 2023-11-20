@@ -7,19 +7,39 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Quiz Game</h1>
-   <div class="disp_num"></div>
     <div class="container">
-        <p id="msg"></p>
-        <div id="number"></div>
-        <div class="list">
+        <div class="start_quiz">
+            <p>This quiz game contains 10 questions of MySql</p>
+            <p>You have to complete the test within 5 minutes</p>
+            <button id="start_quiz_button">Start Quiz</button>
         </div>
-        <div class="task">
+        <div class="box">
+            <div class="timer_submit">
+                <div class="timer">5:00</div>
+                <button id="submit">submit</button>
+            </div>
+            <!-- <p class="message">message</p> -->
+            <div class="question_numbers"></div>
+            <div class="question"></div>
+            <div class="option_list"></div>
+            <div class="handler_button">
+                <button id="previous">previous</button>
+                <button id="next">next</button>
+            </div>
+        </div>
+        <div class="game_over">
+            <p>Your total Score is <span id="myscore">10</span></p>
+            <button id="retake_quiz">Retake Quiz</button>
+        </div>
+    </div>
+
+
+
+        <!-- <div class="task">
             <button id="prev">Previous</button>
             <button id="submit">Submit</button>
             <button id="next">Next</button>
-        </div>
-    </div>
+        </div> -->
     <script type="module" src="quiz.js"></script>
 </body>
 </html>

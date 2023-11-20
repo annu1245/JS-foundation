@@ -5,125 +5,160 @@ body {
     flex-direction: column;
     font-size: 1.2rem;
     background-color: #f1f1f1;
-}
-#msg{ 
-    background-color: red;
+   
 }
 
-li {
-    list-style-type: none;
-    
-}
-
-.disp_num {
-    margin-bottom: 0.5em;
-}
-.disp_num > span {
-    background-color: rgb(247, 196, 237);
-    text-align: center;
-    padding: 6px 15px;
-    cursor: pointer;
-    margin: 0px 10px 0px 10px;
-}
 .container {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    width: 600px;
-    min-width: 200px;
-    background-color: white;
-    height: 70vh;
-    padding: 0px 20px 15px 20px;
-    overflow: hidden;
+    width: 45%;
+    height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
+    padding: 30px;
 }
 
-#number {
-    text-align: center;
-    color: white;
-    width: 1em;
-    height: 1em;
-    padding: 8px;
+.timer_submit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.timer {
+    margin-right: 10px;
+    font-size: 1.4em;
+}
+
+#submit {
+    padding: 6px 15px;
     font-size: 1.2rem;
-    font-weight: 600;
-    background-color: blue;
+    border-radius: 10px;
+    text-transform: capitalize;
+    background-color: violet;
+    cursor: pointer;
+    border: none;
+}
+.message {
+    text-align: center;
+    color: red;
 }
 
-
-.list {
-    width: 100%;
-    height: 75%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    /* background-color: red; */
+.question_numbers {
+    line-height: 2em;
+    margin: 15px 0px;
+    text-align: center;
 }
 
+.question_numbers > span {
+    background-color: violet;
+    padding: 5px 15px;
+    margin-right: 15px;
+    cursor: pointer;
+}   
 
+#current {
+    background-color: yellow;
+}
+.question { 
+    width:100%;
+    height: 150px;
+    font-size: 1.3em;
+}
 
-
-.question {
+.option_list > li {
     word-break: break-all;
-    max-width: 100%;
-    border-radius: 5px;
-    background-color: rgb(238, 238, 235);
+    line-height: 1.2;
+    padding: 10px;
+    border: 2px solid black;
+    margin: 10px 0px;
+    font-size: 1em;
+    cursor: pointer;
+    list-style-type: none;
 }
+
+
+.handler_button {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.handler_button > button {
+    padding: 8px 15px;
+    border: none;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    margin-left: 2em;
+}
+
+#previous {
+    background-color: antiquewhite;
+}
+
+#next {
+    background-color: violet;
+}
+
+.option_list > li:hover {
+    background-color: rgb(220, 222, 225);
+}
+
+.option_list> li:nth-child(1){
+    border: 3px solid rgb(237, 207, 54);
+}
+.option_list> li:nth-child(2){
+    border: 3px solid pink;
+}
+.option_list> li:nth-child(3){
+    border: 3px solid yellowgreen;
+}
+.option_list> li:nth-child(4){
+    border: 3px solid violet;
+}
+
+#center{
+    display: grid;
+    place-items: center;
+    height: 60vh;
+}
+
+.start_quiz > button {
+    padding: 20px 30px;
+    border: none;
+    background-color: violet;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.start_quiz {
+    text-align: center;
+}
+
 #selected {
     background-color: aquamarine;
 }
 
-.option_list {
-    width: 100%;
-}
-
-.options {
-    line-height: 12px;
-    padding: 8px;
-    margin-top: 10px;
-}
-
-.options:hover {
-    background-color: #f1f1f1;
-}
-
-.options:nth-child(1){
-    border: 3px solid skyblue;
-}
-
-.options:nth-child(2){
-    border: 3px solid orange;
-}
-
-.options:nth-child(3) {
-    border: 3px solid yellowgreen;
-}
-
-.options:nth-child(4) {
-    border: 3px solid violet;
-}
-
-h1{
-    color: tomato;
-}
-
-.task {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.task button {
-    padding: 8px 30px;
+#retake_quiz {
+    padding: 10px 15px;
+    text-transform: uppercase;
+    word-spacing: 0.2em;
+    font-size: 1em;
     background-color: violet;
     cursor: pointer;
-    font-size: 1.1rem;
     border: none;
+    border-radius: 10px;
+}
+
+.game_over > p{
+    font-size: 1.2em;
 }
 
 @media only screen and (max-width: 600px) {
    
     .container {
-        width: 90%;
-        margin: 10px;
+        width: 100%;
+        padding: 10px;
     }
 }
