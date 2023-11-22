@@ -1,7 +1,3 @@
-import data from './api.js';
-// const data = "abc"
-console.log(data[0]);
-
 const container = document.querySelector('.container');
 const tasks = document.querySelector('.task');
 // const prevBtn = document.getElementById('prev');
@@ -25,18 +21,21 @@ const submitButton = document.getElementById('submit');
 const gameOverDiv = document.querySelector('.game_over');
 const reStartQuiz = document.getElementById('retake_quiz');
 const myScore = document.getElementById('myscore');
-const questionNumbers = document.querySelector('.question_numbers')
+// const questionNumbers = document.querySelector('.question_numbers')
 
 let countIndex = 0;
 let userSelectedOptns = {};
 let quizQuestions;
+
+const element = document.querySelector(".pagination ul");
+let totalPages = 10;
+let page = 1;
 
 startGame();
 
 async function quizApi() {
     const response = await fetch('https://annu1245.github.io/quiz-api/data.json')
     quizQuestions = await response.json();
-    console.log("data", data);
 }
 
 
@@ -47,14 +46,17 @@ function startGame() {
     quizApi();
 }
 
+let cc = 10;
+let p = 3
 startButton.addEventListener("click", () => {
     container.removeAttribute('id');
     startQuiz.style.display = 'none';
     box.style.display = 'block';
     startTimer();
-    quesNumbers();
     checkNextQuiz();
+
 })
+
 
 
 
@@ -69,6 +71,7 @@ previousButton.addEventListener("click", ()=>{
         countIndex--;
         clearPreviousElement();
         displayQuiz(quizQuestions[countIndex-1]);
+        element.innerHTML =  createPagination(10, countIndex);
     }
 })
 
@@ -78,6 +81,7 @@ function checkNextQuiz() {
         console.log(countIndex);
         clearPreviousElement();
         displayQuiz(quizQuestions[countIndex-1]);
+        element.innerHTML =  createPagination(10, countIndex);
     }else {
         console.log("no more quiz");
     }
@@ -92,7 +96,11 @@ function showPreviousButton() {
 }
 
 function displayQuiz(currentData) {
+    if(currentData === undefined || currentData == {}) {
+        return;
+    }
     console.log("cc", countIndex);
+    
     showPreviousButton();
     questionDiv.innerHTML = `Q${countIndex} ${currentData.question}`
     currentData.options.map((optionValue) => {
@@ -130,9 +138,7 @@ function selectOptionListener() {
 
 function setUserAnswer(value) {
     userSelectedOptns[countIndex] = value;
-    // update question number queue
-    updateQuestionNumQueue();
-   
+    // update question number queue   
 }
 
 function previousSelectedOtpn() {
@@ -189,43 +195,43 @@ reStartQuiz.addEventListener("click", () => {
 
 // quizApi();
 // // show all question number in a queue to the top of page
-function quesNumbers() {
-    for(let i=1; i<=quizQuestions.length; i++) {
-        let quesNum = document.createElement('span');
-        quesNum.classList.add('ques_num_queue');
-        quesNum.innerHTML = i;
-        questionNumbers.appendChild(quesNum);
-        // quesNumListener(quesNum);
-    }
-    questionNumberListener();
-}
+// function quesNumbers() {
+//     for(let i=1; i<=quizQuestions.length; i++) {
+//         let quesNum = document.createElement('span');
+//         quesNum.classList.add('ques_num_queue');
+//         quesNum.innerHTML = i;
+//         questionNumbers.appendChild(quesNum);
+//         // quesNumListener(quesNum);
+//     }
+//     questionNumberListener();
+// }
 
-function questionNumberListener() {
-    let allQuesNumArr = document.querySelectorAll('.ques_num_queue');
-    allQuesNumArr.forEach((questionNumber) => {
-        questionNumber.addEventListener("click", (e) => {
-            //remove previous active
-            allQuesNumArr.forEach(otherNumber => otherNumber.removeAttribute('id'));
-            countIndex = parseInt(e.target.innerHTML);
-            //set new to active
-            e.target.setAttribute('id', 'current');
-            clearPreviousElement();
-            displayQuiz(quizQuestions[countIndex-1])
-        })
-    })
-}
+// function questionNumberListener() {
+//     let allQuesNumArr = document.querySelectorAll('.ques_num_queue');
+//     allQuesNumArr.forEach((questionNumber) => {
+//         questionNumber.addEventListener("click", (e) => {
+//             //remove previous active
+//             allQuesNumArr.forEach(otherNumber => otherNumber.removeAttribute('id'));
+//             countIndex = parseInt(e.target.innerHTML);
+//             //set new to active
+//             e.target.setAttribute('id', 'current');
+//             clearPreviousElement();
+//             displayQuiz(quizQuestions[countIndex-1])
+//         })
+//     })
+// }
 
 
 
-function quesNumListener(currQuesNumDiv) {
-    currQuesNumDiv.addEventListener('click', () => {
-        let currQuesNum = parseInt(currQuesNumDiv.innerHTML);
-        let obj = quizList[currQuesNum-1];
-        countIndex = currQuesNum;
-        listDiv.innerHTML = '';
-        displayQuiz(obj);
-    })
-}
+// function quesNumListener(currQuesNumDiv) {
+//     currQuesNumDiv.addEventListener('click', () => {
+//         let currQuesNum = parseInt(currQuesNumDiv.innerHTML);
+//         let obj = quizList[currQuesNum-1];
+//         countIndex = currQuesNum;
+//         listDiv.innerHTML = '';
+//         displayQuiz(obj);
+//     })
+// }
 
 
 
@@ -246,15 +252,15 @@ function quesNumListener(currQuesNumDiv) {
 
 
 
-function updateQuestionNumQueue() {
-    let userSelectedQuesNum = Object.keys(userSelectedOptns);
-    let quesNumberQueue = document.querySelectorAll('.ques_num_queue');
-    quesNumberQueue.forEach(quesNumber => {
-        if(userSelectedQuesNum.includes(quesNumber.innerHTML)) {
-            quesNumber.style.backgroundColor = 'tomato';
-        }
-    })
-}
+// function updateQuestionNumQueue() {
+//     let userSelectedQuesNum = Object.keys(userSelectedOptns);
+//     let quesNumberQueue = document.querySelectorAll('.ques_num_queue');
+//     quesNumberQueue.forEach(quesNumber => {
+//         if(userSelectedQuesNum.includes(quesNumber.innerHTML)) {
+//             quesNumber.style.backgroundColor = 'tomato';
+//         }
+//     })
+// }
 
 
 
@@ -314,3 +320,81 @@ function startTimer() {
 // //     prevBtn.style.visibility = 'hidden';
 // //     submitBtn.style.visibility = 'hidden';
 // // }
+
+
+//pagination 
+// selecting required element
+
+element.innerHTML = createPagination(totalPages = 10, page);
+//calling function with passing parameters and adding inside element which is ul tag
+function createPagination(totalPages, page){
+
+
+console.log("page", page);
+
+  let liTag = '';
+  let active;
+  let beforePage = page - 1;
+  let afterPage = page + 1;
+
+  if(page > 1){ //show the next button if the page value is greater than 1
+    liTag += `<li class="btn prev" onclick="createPagination(totalPages, ${page - 1})"><span><i class="fas fa-angle-left"></i> Prev</span></li>`;
+  }
+
+  if(page > 2){ //if page value is less than 2 then add 1 after the previous button
+    liTag += `<li class="first numb" onclick="createPagination(totalPages, 1)"><span>1</span></li>`;
+    if(page > 3){ //if page value is greater than 3 then add this (...) after the first li or page
+      liTag += `<li class="dots"><span>...</span></li>`;
+    }
+  }
+
+  // how many pages or li show before the current li
+  if (page == totalPages) {
+    beforePage = beforePage - 2;
+  } else if (page == totalPages - 1) {
+    beforePage = beforePage - 1;
+  }
+  // how many pages or li show after the current li
+  if (page == 1) {
+    afterPage = afterPage + 2;
+  } else if (page == 2) {
+    afterPage  = afterPage + 1;
+  }
+
+  for (var plength = beforePage; plength <= afterPage; plength++) {
+    if (plength > totalPages) { //if plength is greater than totalPage length then continue
+      continue;
+    }
+    if (plength == 0) { //if plength is 0 than add +1 in plength value
+      plength = plength + 1;
+    }
+    if(page == plength){ //if page is equal to plength than assign active string in the active variable
+      active = "active";
+    }else{ //else leave empty to the active variable
+      active = "";
+    }
+    liTag += `<li class="numb ${active}" onclick="createPagination(totalPages, ${plength})"><span>${plength}</span></li>`;
+  }
+
+  if(page < totalPages - 1){ //if page value is less than totalPage value by -1 then show the last li or page
+    if(page < totalPages - 2){ //if page value is less than totalPage value by -2 then add this (...) before the last li or page
+      liTag += `<li class="dots"><span>...</span></li>`;
+    }
+    liTag += `<li class="last numb" onclick="createPagination(totalPages, ${totalPages})"><span>${totalPages}</span></li>`;
+  }
+
+  if (page < totalPages) { //show the next button if the page value is less than totalPage(20)
+    liTag += `<li class="btn next" onclick="createPagination(totalPages, ${page + 1})"><span>Next <i class="fas fa-angle-right"></i></span></li>`;
+  }
+
+  
+  if(quizQuestions != undefined){
+    countIndex = page;
+    clearPreviousElement();
+    displayQuiz(quizQuestions[countIndex-1])
+    
+  }
+  element.innerHTML = liTag; //add li tag inside ul tag
+  return liTag; //reurn the li tag
+}
+
