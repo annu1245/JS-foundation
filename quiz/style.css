@@ -154,9 +154,7 @@ body {
     border-radius: 10px;
 }
 
-.game_over > p{
-    font-size: 1.2em;
-}
+
 
 .pagination {
     display: grid;
@@ -215,6 +213,84 @@ body {
     background: #20B2AA;
   }
 
+  
+.progess_bar {
+    background-color: #535c68;
+    width: 300px;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  }
+  
+  .circular-progress {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .circular-progress::before {
+    content: "";
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #535c68;
+  }
+  .course-value {
+    position: relative;
+    color: #eb4d4b;
+    font-size: 35px;
+    font-weight: 500;
+  }
+
+  .game_over {
+    width: 450px;
+    height: auto;
+  }
+
+  .up {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+    height: 250px;
+  }
+
+.right {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 10px 20px;
+}
+.right > P {
+font-size: 1.4rem;
+}
+
+.down {
+text-align: center;
+}
+
+.down > p {
+    font-size: 1.2em;
+}
+
+#review_quiz {
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 10px;
+    text-transform: uppercase;
+    background-color: violet;
+}
 @media only screen and (max-width: 600px) {
    
     .container {

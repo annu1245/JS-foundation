@@ -15,7 +15,7 @@
         </div>
         <div class="box">
             <div class="timer_submit">
-                <div class="timer">5:00</div>
+                <div class="timer"></div>
                 <button id="submit">submit</button>
             </div>
             <!-- <p class="message">message</p> -->
@@ -31,17 +31,25 @@
             </div>
         </div>
         <div class="game_over">
-            <p>Your total Score is <span id="myscore">10</span></p>
-            <button id="retake_quiz">Retake Quiz</button>
+            <div class="up">
+                <div class="left">
+                    <div class="progress_bar">
+                        <div class="circular-progress" >
+                            <span class="course-value" style="color:red">0%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <p>Your total Score is <span id="myscore"style="color:red" >10</span></p>
+                    <button id="review_quiz"><a href="./result.html">review</a></button>
+                </div>
+            </div>
+            <div class="down">
+                <button id="retake_quiz">Retake Quiz</button>
+            </div>
+
         </div>
     </div>
-
-
-        <!-- <div class="task">
-            <button id="prev">Previous</button>
-            <button id="submit">Submit</button>
-            <button id="next">Next</button>
-        </div> -->
     <script src="quiz.js"></script>
 </body>
 </html>
